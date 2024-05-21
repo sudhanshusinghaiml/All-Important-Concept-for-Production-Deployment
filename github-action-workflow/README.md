@@ -134,4 +134,10 @@ jobs:
    - **Health Check**: Performs a health check to ensure the application is running correctly.
    - **Monitoring and Logging Setup**: Placeholder for setting up monitoring and logging.
    - **Rollback Strategy**: If the deployment fails, stops the current container, removes it, and runs the previous version of the Docker image.
-
+  
+## References:
+   - For more details about github actions please find follow the attached given url below.
+       - [Github Actions](https://github.com/actions)
+       - [AWS Github Actions](https://github.com/aws-actions)
+       - [Google Github Actions](https://github.com/google-github-actions)
+       - [Github Actions for Azure](https://learn.microsoft.com/en-us/azure/developer/github/github-actions)

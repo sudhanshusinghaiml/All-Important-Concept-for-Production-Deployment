@@ -21,7 +21,7 @@ This repository uses pre-commit hooks to enforce code quality standards and prev
 
 - [Installation](#installation)
 - [Configuration](#configuration)
-- [Using Pre-commit](#using-pre-commit)
+- [Using Pre commit](#using-pre-commit)
 - [Custom Hooks](#custom-hooks)
 - [Running Hooks Manually](#running-hooks-manually)
 
@@ -74,7 +74,7 @@ repos:
       args: ['--disable=R,C']
 ```
 
-### Hooks Explanation
+##### Hooks Explanation
 - Trailing Whitespace: Removes trailing whitespace from files.
 - End of File Fixer: Ensures files end with a newline.
 - Check YAML: Checks YAML files for syntax errors.
@@ -83,3 +83,42 @@ repos:
 - MyPy: Performs static type checking using mypy.
 - Pylint: Lints Python code with pylint.
 
+#### Using Pre-commit
+Pre-commit hooks will run automatically before each commit. If any hook fails, the commit will be aborted. Fix the issues reported by the hooks and commit again.
+
+
+#### Custom Hooks
+You can also define custom hooks in the `.pre-commit-config.yaml` file. Here’s an example of a custom hook: Create a custom script (e.g., check_code.py):
+```Python
+import sys
+
+def main():
+    # Custom checks here
+    print("Running custom pre-commit hook")
+    return 0  # Return non-zero to indicate failure
+
+if __name__ == "__main__":
+    sys.exit(main())
+```
+
+We need to add the custom hook to `.pre-commit-config.yaml`:
+```yaml
+repos:
+-   repo: local
+    hooks:
+    -   id: custom-check
+        name: Custom Check
+        entry: python check_code.py
+        language: python
+        files: \.py$
+```
+
+#### Running Hooks Manually
+You can manually run all pre-commit hooks on all files with the following command:
+```bash
+pre-commit run --all-files
+```
+
+### References:
+- [Github Pre Commit Hooks](https://github.com/pre-commit/pre-commit-hooks)
+- [Pre Commit Docs](https://pre-commit.com/)

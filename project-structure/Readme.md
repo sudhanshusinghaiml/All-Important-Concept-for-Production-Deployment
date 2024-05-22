@@ -55,3 +55,4 @@ The basic project structure that is widely accepted with some alteration
 
 ## References
 - [Cookiecutter](https://drivendata.github.io/cookiecutter-data-science/)
+- [Cookiecutter github repo](https://github.com/cookiecutter/cookiecutter)

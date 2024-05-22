@@ -41,6 +41,16 @@ To use pre-commit hooks in this repository, follow these steps:
     pre-commit install
     ```
 
+3. **Update the pre-commit hooks to ensure you have the latest versions available**:
+   ```bash
+   pre-commit autoupdate
+   ```
+
+4. **Reinstall the hooks to apply the updates:**
+   ```bash
+   pre-commit install
+   ```
+
 This sets up Git to run pre-commit hooks defined in the configuration file before every commit.
 
 #### Configuration
@@ -118,6 +128,83 @@ You can manually run all pre-commit hooks on all files with the following comman
 ```bash
 pre-commit run --all-files
 ```
+
+
+## Pre-commit Hook Configuration in VS Code
+
+This guide explains how to set up pre-commit hooks in Visual Studio Code (VS Code) to ensure code quality and consistency before commits.
+
+### Step 1: Install Pre-commit
+First, install `pre-commit` if you haven't already.
+
+```sh
+pip install pre-commit
+```
+
+### Step 2: Create a `.pre-commit-config.yaml` File
+In the root of your project, create a file named `.pre-commit-config.yaml`. This file will define the hooks you want to run. Here’s an example configuration:
+
+```yaml
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.0.1  # Use the latest version or specify a version you need
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-json
+```
+
+### Step 3: Install the Hooks
+Run the following command to install the hooks defined in the `.pre-commit-config.yaml` file:
+
+```sh
+pre-commit install
+```
+
+This command sets up the hooks to run automatically before each commit.
+
+### Step 4: Configure VS Code
+You can configure VS Code to work seamlessly with `pre-commit`.
+
+#### Install the Pre-commit Extension for VS Code:
+1. Go to the Extensions view by clicking the Extensions icon in the Activity Bar on the side of the window or pressing `Ctrl+Shift+X`.
+2. Search for "Pre-commit" and install the extension provided by `nelfer`.
+
+#### Configure Tasks in VS Code:
+1. Open the command palette by pressing `Ctrl+Shift+P` and type `Tasks: Open User Tasks` or `Tasks: Open Workspace Tasks`.
+2. Add a new task for running `pre-commit`.
+
+```json
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Run Pre-commit",
+            "type": "shell",
+            "command": "pre-commit run --all-files",
+            "problemMatcher": []
+        }
+    ]
+}
+```
+
+#### Configure a Git Hook for VS Code:
+1. Create a `.vscode` directory in the root of your project if it doesn’t exist.
+2. Inside `.vscode`, create a file named `settings.json` and add the following configuration:
+
+```json
+{
+    "git.postCommitCommand": "runPreCommit"
+}
+```
+
+### Step 5: Verify the Configuration
+Make a change in your code, stage it, and commit. The pre-commit hooks should run automatically, and you should see the output in the terminal or the Git output panel in VS Code.
+
+By following these steps, you should have `pre-commit` hooks configured and running automatically in your VS Code environment.
+
+
 
 ### References:
 - [Github Pre Commit Hooks](https://github.com/pre-commit/pre-commit-hooks)

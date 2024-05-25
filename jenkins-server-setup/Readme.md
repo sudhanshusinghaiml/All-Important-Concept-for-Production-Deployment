@@ -57,8 +57,26 @@
       sudo cat /var/lib/jenkins/secrets/initialAdminPassword
       ```
 
-## Jenkins File for running Jenkins Pipeline
-- Jenkins Pipeline can use the stages mentioned in Jenkinsfile
+    - When we install Jenkins for the first time, we have to install suggested plugins
+
+    - Once the suggested plugins are installed, it will prompt for setting up username and password and emailid.
+
+    - We will be able to see Jenkins Dshboard
+
+## How to add secrets to Jenkins
+- Manage Jenkins --> Credentials --> System --> Global Credentials(unrestricted) --> New Credential
+- In the option We have to choose Secret Kind. Mentions the ID and secret and create
+- For password key, we need to use kind as secret text.
+- And for SSH Key, we have to use SSH Username and private key
+- For SSH Key, we need to install plugins. Dashboard --> Manage Jenkins --> Plugins --> Avalable Plugins --> Search for SSH Agent.
+- Select SSH Agent and install it. Check the box to restart the Jenkins server.
+- Validate the secrets are in place or not
+
+
+## How to setup/configure Jenkins Pipeline
+- Dashboard --> New Item --> Mention the name and Select Pipeline Option --> Pipeline Definition --> Select Pipeline Script from SCM --> In SCM select Git.
+- Mention the Git URL, branch and Jenkinsfile Path. Save the Pipeline.
+- Jenkins Pipeline can use the stages mentioned in Jenkinsfile. Sample Jenkinsfile for Reference
     ```Jenkinsfile
     pipeline {
         agent any
@@ -141,3 +159,55 @@
         }
     }
     ```
+
+
+- Create another EC2 instance on which the application will be deployed and execute the below scripts one by one
+    ```sh
+        sudo apt update     # Update Ubuntu Server with latest package
+        sudo apt-get update
+        sudo apt upgrade -y
+
+        # Commands to install Docker
+
+        ## Installing Docker
+        curl -fsSL https://get.docker.com -o get-docker.sh
+        sudo sh get-docker.sh
+        sudo usermod -aG docker $USER
+        sudo usermod -aG docker jenkins
+        newgrp docker
+
+        ## Installing AWSCLI
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        sudo apt install zip -y
+        unzip awscliv2.zip
+        sudo ./aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+    ```
+- Run `aws configure` command to setup aws cli access on application server.
+- Attach the elastic ip so that it remains same thourhout its life cycle and get the IP address of server.
+
+## How to trigger Jenkins Pipeline from github actions workflow
+- We need to make use of github actions workflow to trigger Jenkins Pipeline
+    ```yaml
+    name: Trigger Jenkins Job
+
+    on:
+      workflow_dispatch:
+    
+    jobs:
+      trigger:
+        name: Build
+        runs-on: ubuntu-latest
+        steps:
+          - name: Trigger Jenkins Job
+            uses: appleboy/jenkins-action@master
+            with:
+              url: ${{ secrets.URL }}
+              user: ${{ secrets.USER }}
+              token: ${{ secrets.TOKEN }}
+              job: ${{ secrets.JOBS }}
+    ```
+- Setup URL, USER, TOKEN and JOBS in github secrets.
+- URL is the URL for Jenkins server
+- USER is the jenkins username
+- TOKEN - We can get the token from Dashboard --> Profile --> Configure --> API Token --> Create a new Token --> Generate.
+- JOB: Job is the pipeline name that has been setup in Jenkins server

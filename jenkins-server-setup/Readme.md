@@ -1,6 +1,6 @@
 # Jenkins Pipeline Setup 
 - We can use github actions workflow to trigger Jenkins Pipeline. We can setup Jenkins server using the details mentioned below.
-## Steps for setting up a Jenkins Server
+- Steps for setting up a Jenkins Server
     - Create an EC2 instance that we can use as Jenkins Server
     - Run the below scripts to setup Jenkins by connecting to the EC2 machine (Jenkins Server)
         ```sh

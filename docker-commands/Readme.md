@@ -14,6 +14,11 @@
   docker run -d -p 8080:8080 us-visa-approval-prediction:latest
   ```
 
+- Check logs of the conatiner:
+  ```sh
+  docker logs inspiring_swanson
+  ```
+
 - Run a Docker container interactively:
   ```sh
   docker run -it --rm us-visa-approval-prediction:latest

@@ -18,16 +18,50 @@
   ```sh
   docker logs inspiring_swanson
   ```
+  
+- Check streaming logs of the conatiner:
+  ```sh
+  docker logs -f inspiring_swanson
+  ```
+  
+- View Logs from a Specific Timestamp
+  ```sh
+  docker logs -f --since="2023-01-01T00:00:00" <container_id_or_name>
+  ```
 
 - Run a Docker container interactively:
   ```sh
   docker run -it --rm us-visa-approval-prediction:latest
+  ```
+  
+- Run a Docker container interactively on specific port:
+  ```sh
+  docker run -it --rm -p 8080:8080 inspiring_swanson
   ```
 
 - Access a running container:
   ```sh
   docker exec -it inspiring_swanson bash
   ```
+  
+###  Clean up Docker system
+
+- Cleaning up system spaces
+  ```sh
+  docker system prune -f
+  ```
+
+- List all volumes to ensure no volumes are dangling:
+  ```sh
+  docker volume ls
+  docker volume prune -f
+  ```
+
+- Cleaning up image spaces
+  ```sh
+  docker image prune -f
+  ```
+  
 
 ### Installing Docker on Ubuntu
 
@@ -63,6 +97,10 @@
 - Remove a container:
   ```sh
   docker rm container_id
+  ```
+  
+  ```sh
+  docker rm -f container_id
   ```
 
 - Start a container:
@@ -100,6 +138,10 @@
 - Run a container interactively:
   ```sh
   docker run -it --rm busybox:latest
+  ```
+  
+  ```sh
+  docker run -it --rm -p 8080:8080 busybox:latest
   ```
 
 - Run a container in detached mode:

@@ -1,0 +1,78 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    deployment.kubernetes.io/revision: "1"
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"apps/v1","kind":"Deployment","metadata":{"annotations":{},"labels":{"app":"mongodb-app"},"name":"mongodb-deployment","namespace":"default"},"spec":{"replicas":1,"selector":{"matchLabels":{"app":"mongodb-app"}},"template":{"metadata":{"labels":{"app":"mongodb-app"}},"spec":{"containers":[{"env":[{"name":"MONGO_INITDB_ROOT_USERNAME","valueFrom":{"secretKeyRef":{"key":"mongodb-root-username","name":"mongodb-secret"}}},{"name":"MONGO_INITDB_ROOT_PASSWORD","valueFrom":{"secretKeyRef":{"key":"mongodb-root-password","name":"mongodb-secret"}}}],"image":"mongo","name":"mongodb-app","ports":[{"containerPort":27017}]}]}}}}
+  creationTimestamp: "2024-06-21T07:20:26Z"
+  generation: 1
+  labels:
+    app: mongodb-app
+  name: mongodb-deployment
+  namespace: default
+  resourceVersion: "87954"
+  uid: d81a179b-83f9-43a2-b983-a9fbc40c8272
+spec:
+  progressDeadlineSeconds: 600
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: mongodb-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: mongodb-app
+    spec:
+      containers:
+      - env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: mongodb-root-username
+              name: mongodb-secret
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: mongodb-root-password
+              name: mongodb-secret
+        image: mongo
+        imagePullPolicy: Always
+        name: mongodb-app
+        ports:
+        - containerPort: 27017
+          protocol: TCP
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+status:
+  availableReplicas: 1
+  conditions:
+  - lastTransitionTime: "2024-06-21T07:20:31Z"
+    lastUpdateTime: "2024-06-21T07:20:31Z"
+    message: Deployment has minimum availability.
+    reason: MinimumReplicasAvailable
+    status: "True"
+    type: Available
+  - lastTransitionTime: "2024-06-21T07:20:27Z"
+    lastUpdateTime: "2024-06-21T07:20:31Z"
+    message: ReplicaSet "mongodb-deployment-565784f555" has successfully progressed.
+    reason: NewReplicaSetAvailable
+    status: "True"
+    type: Progressing
+  observedGeneration: 1
+  readyReplicas: 1
+  replicas: 1
+  updatedReplicas: 1

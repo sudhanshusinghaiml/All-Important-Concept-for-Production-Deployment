@@ -1,0 +1,51 @@
+https://dev.to/aws-heroes/enabling-resiliency-for-a-static-website-hosted-on-aws-cloud-3nk
+https://dev.to/aws-heroes/automated-deployment-to-static-website-5245
+https://dev.to/aws-heroes/enabling-resiliency-for-a-static-website-hosted-on-aws-cloud-3nk
+What are the 2 unique things that we need to remember about docker
+a) union file system - it will merge all the image layers and will give us a single file system 
+b) copy-on-write - it copies files that are edited on top layers that we have 
+
+# ---------------------------------------------------------------------------------------------
+# A custom docker image with OpenJava 8 and Tomcat with default ROOT and HelloWorld applications
+# The valid uri are / and /HelloWorld
+# ---------------------------------------------------------------------------------------------
+FROM ubuntu:20.04
+MAINTAINER: Sudhanshu Singh
+
+RUN apt update && \
+        apt install -y wget && \
+        cd /opt && \
+        mkdir tomcat && \
+        cd tomcat && \
+        mkdir webapps
+
+RUN wget https://d6opu47qoi4ee.cloudfront.net/tomcat/apache-tomcat-9.0.53.tar.gz && \
+    tar xvfz apache*.tar.gz && \
+    mv apache-tomcat-9.0.53/* /opt/tomcat/. && \
+    cd /opt/tomcat/webapps && \
+    wget https://d6opu47qoi4ee.cloudfront.net/HelloWorld.war && \
+    java -version
+
+WORKDIR /opt/tomcat/webapps
+
+EXPOSE 8080
+
+CMD ["/opt/tomcat/bin/catalina.sh", "run"]
+
+-------------------------------------------------------------------------------------------------------
+
+docker build -f dockerfilename -t customimage:version . 
+
+docker tag firstdockerdemo:latest 046103207511.dkr.ecr.us-east-1.amazonaws.com/ssdemo:v1
+docker push 046103207511.dkr.ecr.us-east-1.amazonaws.com/ssdemo:v1
+docker build -f dockerfilename -t customimage:version . 
+
+docker tag firstdockerdemo:latest 046103207511.dkr.ecr.us-east-1.amazonaws.com/ssdemo:v1
+docker tag bb4c9aac6188 httpd-server:v1
+
+docker build -f SfinDockerfile -t http-server:latest .
+docker images
+docker tag http-server:latest httpd-server:v1
+docker tag bb4c9aac6188 httpd-server:v1
+
+docker pull 046103207511.dkr.ecr.us-east-1.amazonaws.com/ssdemo:v1

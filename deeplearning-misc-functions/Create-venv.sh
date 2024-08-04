@@ -3,8 +3,10 @@
 conda init --all
 
 # Commands to Setup Conda Environment using Command Prompt
-conda create -p .venv/ python=3.9.13 -y
-conda create -n hate-sppech-classification python=3.8 -y
+conda create -p .venv/ python=3.10.14 -y
+conda create -n hate-sppech-classification python=3.10.14 -y
+
+conda create -n chest-disease-classification python=3.10.14 -y
 
 conda activate venv/
 

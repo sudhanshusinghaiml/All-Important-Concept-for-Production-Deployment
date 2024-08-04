@@ -1,9 +1,11 @@
 """
  1. Label Encoding ---> Binary categorical variables and Ordinal variables
  2. One-Hot Encoding ---> Non-ordinal categorical variables with low to mid cardinality (< 5-10 levels)
+                          Note: a one-hot encoding of y labels should use a LabelBinarizer instead.
  3. Target encoding ---> Categorical variables with > 10 levels
-
+ 4. Label Binarizer ---> This can be used only for Target Class
 """
+
 # ================================================
 #  Enoding and Different Type of Encoding methods
 # ================================================
@@ -26,29 +28,55 @@
 # ================================
     # Method - 1
     # ===========
+    """
+        Encode categorical features as a one-hot numeric array.
+
+        The input to this transformer should be an array-like of integers or strings, denoting the values taken on by categorical (discrete) features. The features are encoded using a one-hot (aka ‘one-of-K’ or ‘dummy’) encoding scheme. This creates a binary column for each category and returns a sparse matrix or dense array (depending on the sparse_output parameter).
+
+        By default, the encoder derives the categories based on the unique values in each feature. Alternatively, you can also specify the categories manually.
+
+        This encoding is needed for feeding categorical data to many scikit-learn estimators, notably linear models and SVMs with the standard kernels.
+
+        Note: a one-hot encoding of y labels should use a LabelBinarizer instead
     
+    
+    """
     """
         One Hont Encoder doesnot accept DataFrame. It accepts series and transforms it to codes 
     """
     
-    from sklearn.preprocessing import LabelEncoder
-    label_encoder_geography = LabelEncoder()
-    geography_series = label_encoder_geography.fit_transform(df['Geography'])
-    
+    # OneHotEncoder for Training dataset
     from sklearn.preprocessing import OneHotEncoder
+    
+    X_train = X_train.reset_index(drop=True)
+    X_train_encoded = X_train.copy()
+    one_hot_encoder = OneHotEncoder(handle_unknown='infrequent_if_exist', sparse_output=False, drop='first')
+    one_hot_encoded = one_hot_encoder.fit_transform(X_train[categorical_variables])
+    X_train_encoded = pd.concat([X_train, pd.DataFrame(one_hot_encoded.astype(int), columns=one_hot_encoder.get_feature_names_out())], axis = 1)
+    X_train_encoded.drop(categorical_variables, axis= 1, inplace=True)
+    X_train_encoded.head(10)
+    
 
-    ohe = OneHotEncoder(handle_unknown = 'ignore', sparse=False)
-    ohe_geography= ohe.fit_transform(geography_series.reshape(df.shape[0],1))
-    ohe_geography.astype(int)
+    # OneHotEncoder for Test dataset
+    X_test = X_test.reset_index(drop=True)
+    X_test_encoded = X_test.copy()
+    one_hot_encoded = one_hot_encoder.transform(X_test[categorical_variables])
+    X_test_encoded = pd.concat([X_test, pd.DataFrame(one_hot_encoded.astype(int), columns=one_hot_encoder.get_feature_names_out())], axis = 1)
+    X_test_encoded.drop(categorical_variables, axis= 1, inplace=True)
+    X_test_encoded.head(10)
     
-    encoded_colum_name = ['Country_' + i for i in label_encoder_geography_mapping.keys()]
-    encoded_colum_name
-    
-    df = pd.concat([df, pd.DataFrame(ohe_geography.astype(int), columns= encoded_colum_name)], axis=1)
-    df.drop('Geography',axis=1, inplace=True)
-    df.head(10)
-    df.tail(10)
-    
+    # LabelEncoder for Training dataset
+    from sklearn.preprocessing import LabelEncoder
+    label_encoder = LabelEncoder()
+    # label_encoder.fit(y_train_encoded)
+    y_train_encoded = label_encoder.fit_transform(y_train_encoded)
+    y_train_encoded = pd.DataFrame(y_train_encoded, columns=['Status'])
+    y_train_encoded.head(20)
+
+    # LabelEncoder for Test dataset
+    y_test_encoded = label_encoder.transform(y_test_encoded)
+    y_test_encoded = pd.DataFrame(y_test_encoded, columns=['Status'])
+    y_test_encoded.head(20)
 
     #Method - 2
     #===========

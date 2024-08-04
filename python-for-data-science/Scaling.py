@@ -1,3 +1,16 @@
+"""
+Should we scale the data before train test split or after the split ?
+=====================================================================
+--> Scaling:
+	We will Scale the data after train_test split.
+	- On Train Data apply - .fit_transform()
+	- On Test Data apply - .transform()
+    
+	- If the outlier is natural and valid - We use Standard Scaler (-3 to 3)
+	- If outlier is not legitimate - We use MinMax Scaler (0 to 1)
+    
+"""
+
 # ========================================
 # Scaling and Different Types of Scaling:
 # ========================================
@@ -49,7 +62,7 @@
     df_rs_scaled = pd.DataFrame(df_rs_scaled, columns = col_name)
 
 
-# StandardScaler() Scaling:
+# StandardScaler() Scaling (z-scaler):
 # =========================
 # Scaling only continuous columns
 

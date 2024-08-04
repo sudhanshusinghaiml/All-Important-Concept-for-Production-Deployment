@@ -197,9 +197,20 @@ sns.heatmap(user_data.corr(), annot=True, cmap='rainbow', mask = np.triu(user_da
 plt.title("Heatmap of all Features",fontdict=font);
 plt.show();
 
+## ======================================================================================
+'''
+    Code to plot heatmap using mask.
+'''
+# --------------------------------------------------------------------------------------
+plt.figure(figsize=(12,6))
+sns.heatmap(modified_df.corr(), annot=True, cmap='rainbow', mask=np.triu(modified_df.corr(),+1))
+plt.title('Heatmap of all Variables')
+plt.show()
+
+
 ## =======================================================================================
 '''
-    Code to add subplot to display boxplot for all numerical columns.
+    Code to add subplot to display strip plot for all numerical columns.
 '''
 # ----------------------------------------------------------------------------------------
 fig = plt.figure(figsize=(15,30))
@@ -216,7 +227,7 @@ plt.show()
 
 ## =======================================================================================
 '''
-    Code to add subplot to display boxplot for all numerical columns.
+    Code to add subplot to display histogram for all numerical columns.
 '''
 # ----------------------------------------------------------------------------------------
 cols=election_df.dtypes[election_df.dtypes!='object'].index #taking only numerical attributes
@@ -226,54 +237,27 @@ election_df[cols].hist(ax=ax) #histogram for numerical columns where axis ax is 
 plt.show()
 
 ## ========================================================================================
-'''
-    Code to Plot ROC and AUC Curve for training and test data adjacent to each other.
-'''
-# ----------------------------------------------------------------------------------------
-fig = plt.figure(figsize=(10,4))
-fig.suptitle('ROC Curve for Logistic Regression')
-lr_train_prob = lr_model.predict_proba(X_train)
-lr_train_prob = lr_train_prob[:,1]
-lr_auc = roc_auc_score(y_train, lr_train_prob)
-print('Training data AUC Score: %.3f' % lr_auc)
-fpr, tpr, thresholds = roc_curve(y_train, lr_train_prob)
-plt.subplot(1,2,1)
-plt.plot([0, 1], [0, 1], linestyle='--')
-# plot the roc curve for the model
-plt.plot(fpr, tpr, marker='.')
 
-lr_test_prob = lr_model.predict_proba(X_test)
-lr_test_prob = lr_test_prob[:,1]
-lr_auc = roc_auc_score(y_test, lr_test_prob)
-print('Test data AUC Score: %.3f' % lr_auc)
-fpr, tpr, thresholds = roc_curve(y_test, lr_test_prob)
-plt.subplot(1,2,2)
-plt.plot([0, 1], [0, 1], linestyle='--')
-# plot the roc curve for the model
-plt.plot(fpr, tpr, marker='.')
-# show the plot
-plt.show()
-
-## =====================================================================================
 '''
-    Code to show basic plot with values on top of barplot.
+    Code to show count plot with values on top of barplot.
 '''
 # --------------------------------------------------------------------------------------
 
-def add_labels_on_y_axis(x,y):
-    for i in range(len(x)):
-        plt.text(i,y[i],y[i], ha='center')
-    
-plt.figure(figsize=(12,6))
-sns.barplot(data = temp, x= 'SubArea', y = 'Count')
-add_labels_on_y_axis(temp['SubArea'],temp['Count'])
-plt.title('No of Houses in each Sub Area')
-plt.xticks(rotation=90)
+fig = plt.figure(figsize=(10,10))
+fig.subplots_adjust(hspace=0.7, top=0.95, wspace= 0.3, bottom=0.1)
+fig.tight_layout()
+for idx, col in enumerate(cirrhosis_df.select_dtypes(include='object').columns):
+    ax1 = fig.add_subplot(4,3,idx+1)
+    sns.countplot(data = cirrhosis_df, x = col, ax = ax1)
+    for label in ax1.containers:
+        ax1.bar_label(label)
+
+plt.suptitle('Distibution plot for selected features')
 plt.show()
 
 ## =====================================================================================
 '''
-    Plot the distribution plot for all the integer and float variables
+    Plot the histplot plot for all the integer and float variables
 '''
 
 fig = plt.figure(figsize=(10,10))
@@ -284,16 +268,6 @@ for idx, col in enumerate(modified_df.select_dtypes(include=['int64','float64'])
     sns.histplot(data = modified_df, x = col, kde = True)
     
 plt.suptitle('Distibution plot for Continuous variables')
-plt.show()
-
-## ======================================================================================
-'''
-    Code to plot heatmap using mask.
-'''
-# --------------------------------------------------------------------------------------
-plt.figure(figsize=(12,6))
-sns.heatmap(modified_df.corr(), annot=True, cmap='rainbow', mask=np.triu(modified_df.corr(),+1))
-plt.title('Heatmap of all Variables')
 plt.show()
 
 ##=======================================================================================
@@ -413,115 +387,6 @@ for label in ax.containers:
     ax.bar_label(label)
 plt.xticks(rotation=45)
 plt.suptitle('Count of Orders based on Deal Size and Product Line', fontsize=12)
-plt.show();
-
-## =============================================================================================
-'''
-    Code to plot Pareto Chart in python
-'''
-
-from matplotlib.ticker import PercentFormatter
-
-#define aesthetics for plot
-bar_color = 'steelblue'
-line_color = 'red'
-line_size = 4
-
-plt.figure(figsize=(12,4))
-#create basic bar plot
-fig, ax1 = plt.subplots()
-ax1.bar(product_line_df['PRODUCTLINE'], product_line_df['Count'], color=bar_color)
-
-#add cumulative percentage line to plot
-ax2 = ax1.twinx()
-ax2.plot(product_line_df['PRODUCTLINE'], product_line_df['Cumulative_Count'], color=line_color, marker="D", ms=line_size)
-ax2.yaxis.set_major_formatter(PercentFormatter())
-
-#specify axis colors
-ax1.tick_params(axis='y', colors=bar_color)
-ax2.tick_params(axis='y', colors=line_color)
-
-for label in ax1.containers:
-    ax1.bar_label(label)
-
-for x_val, y_val in zip (range(len(product_line_df)), round(product_line_df['Cumulative_Count'],2)):
-    ax2.text(x=x_val-0.20, y=y_val+0.125, s=y_val, fontsize=10, color="black", ha="center", va="center")
-    
-plt.suptitle('Product line Pareto Chart', fontsize=12)
-
-#display Pareto chart
-plt.show();
-
-## =============================================================================================
-'''
-    Code to plot important features in Classification Models
-'''
-
-# Sort the important features in descending order.
-dt_sorted_index = lp_gs_xgb_model.best_estimator_.feature_importances_.argsort()
-dt_important_features_values = lp_gs_xgb_model.best_estimator_.feature_importances_[dt_sorted_index][::-1]
-
-# Get the feature names.
-dt_feature_names = X_train_lp.columns[dt_sorted_index]
-
-# Plotting the important features.
-fig, ax = plt.subplots(figsize=(12,5))
-ax.bar(dt_feature_names, dt_important_features_values)
-for label in ax.containers:
-    ax.bar_label(label, fmt='%.2f')
-ax.set_xlabel('Feature Importance')
-ax.set_ylabel('Feature Name')
-ax.set_title('Feature Importance of GridSearchCV')
-ax.set_xticks(dt_sorted_index)
-ax.set_xticklabels(dt_feature_names, rotation=45, ha='right')
-plt.show();
-
-## =============================================================================================
-'''
-    Code to plot confusion matrix in Classification Models
-'''
-
-lr_train_cm=confusion_matrix(y_train, y_logistic_train_predict)
-lr_test_cm=confusion_matrix(y_test, y_logistic_test_predict)
-
-disp_lr_train = ConfusionMatrixDisplay(confusion_matrix=lr_train_cm, display_labels=logistic_model.classes_)
-disp_lr_train.plot()
-plt.grid(False)
-plt.show()
-
-## =============================================================================================
-'''
-    Code to plot ROC AUC Curve for Classification Models
-'''
-
-# predict probabilities
-lr_mb_train_predicted = mb_lr_model.predict_proba(X_train_mb)
-
-# keep probabilities for the positive outcome only
-lr_mb_train_prob_predicted = lr_mb_train_predicted[:,1]
-
-# calculate AUC
-lr_mb_auc_train = roc_auc_score(y_train_mb, lr_mb_train_prob_predicted)
-print('AUC for train data for Logistic Regression: %.3f' % lr_mb_auc_train)
-
-# predict probabilities
-lr_mb_test_predicted = mb_lr_model.predict_proba(X_test_mb)
-
-# keep probabilities for the positive outcome only
-lr_mb_test_prob_predicted = lr_mb_test_predicted[:,1]
-
-# calculate AUC
-lr_mb_auc_test = roc_auc_score(y_test_mb, lr_mb_test_prob_predicted)
-print('AUC for test data for Logistic Regression: %.3f' % lr_mb_auc_test)
-
-# calculate roc curve
-lr_mb_train_fpr, lr_mb_train_tpr, lr_mb_train_thresholds = roc_curve(y_train_mb, lr_mb_train_prob_predicted)
-lr_mb_test_fpr, lr_mb_test_tpr, lr_mb_test_thresholds = roc_curve(y_test_mb, lr_mb_test_prob_predicted)
-plt.plot([0, 1], [0, 1], linestyle='--')
-
-# plot the roc curve for the model
-plt.plot(lr_mb_train_fpr, lr_mb_train_tpr, color='g')
-plt.plot(lr_mb_test_fpr, lr_mb_test_tpr, color='r')
 plt.show();
 
 ## =============================================================================================

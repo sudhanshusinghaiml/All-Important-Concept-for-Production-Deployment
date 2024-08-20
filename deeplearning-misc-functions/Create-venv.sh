@@ -8,6 +8,8 @@ conda create -n hate-sppech-classification python=3.10.14 -y
 
 conda create -n chest-disease-classification python=3.10.14 -y
 
+conda remove -n chest-disease-classification --all
+
 conda activate venv/
 
 # create the requirement.txt files and update all the libraries that is needed for the project

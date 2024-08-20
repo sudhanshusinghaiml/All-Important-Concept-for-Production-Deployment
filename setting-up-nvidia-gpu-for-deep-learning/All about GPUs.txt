@@ -1,0 +1,61 @@
+Blogs - https://timdettmers.com/2023/01/30/which-gpu-for-deep-learning/
+
+NVIDIA GPUs - https://www.nvidia.com/en-in/geforce/graphics-cards/40-series/
+
+Google Cloud GPUs - https://cloud.google.com/compute/docs/gpus#h100-gpus
+
+Computer Visions:
+	https://keras.io/api/applications/
+
+	https://cloud.google.com/compute/docs/gpus#h100-gpus
+
+	- CV2
+	- OpenCV
+	- skimage
+
+
+Distributed Training with Tensorflow - 
+	- https://www.tensorflow.org/guide/distributed_training
+	
+	- https://www.tensorflow.org/tutorials/distribute/keras
+
+
+Spark Distributed Processing Blogs:
+	- https://spark.apache.org/docs/latest/api/python/reference/api/pyspark.ml.feature.StandardScaler.html
+
+	- https://www.machinelearningplus.com/pyspark/pyspark-exercises-101-pyspark-exercises-for-data-analysis/
+	
+	- https://www.machinelearningplus.com/pyspark/pyspark-variable-type-identification/
+	
+	- https://www.machinelearningplus.com/pyspark/pyspark-onehot-encoding/
+	
+	- https://www.machinelearningplus.com/pyspark/pyspark-stringindexer/
+	
+	- https://www.machinelearningplus.com/pyspark/pyspark-outlier-detection-and-treatment/
+
+	- https://www.machinelearningplus.com/pyspark/pyspark-missing-data-imputation/
+
+	- https://www.machinelearningplus.com/pyspark/pyspark-variance-inflation-factor/
+	
+	- https://www.machinelearningplus.com/blog/
+	
+	
+Machine Learning Plus Course:
+	- https://edu.machinelearningplus.com/courses/ML-Mastery-63f0ad14e4b026def5ff352d
+
+
+Lenovo Laptop:
+	- https://www.lenovo.com/in/en/p/laptops/loq-laptops/lenovo-loq-15iax9/83gs000xin?utm_source=insidechat
+
+
+Dell Laptop:
+	- https://www.dell.com/en-in/shop/business-laptop-notebook-computers/sr/laptops/32-gb?appliedRefinements=37700
+
+	- https://www.dell.com/en-in/shop/gaming-and-games/alienware-x16-r2-gaming-laptop/spd/alienware-x16-r2-laptop/canx162cto02rin
+
+	- https://www.dell.com/en-in/shop/gaming-and-games/alienware-m18-r2-gaming-laptop/spd/alienware-m18-r2-laptop/canm182cto03rin
+
+
+HP Laptop:
+
+https://www.hp.com/in-en/shop/laptops-tablets/personal-laptops.html?graphicprocessor=nvidia-gpu&graphics=nvidia%C2%AE-geforce-rtx%E2%84%A2-4070&memstd=32-gb

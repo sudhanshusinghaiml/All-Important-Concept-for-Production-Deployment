@@ -1,0 +1,23 @@
+Generative AI Project Links:
+
+Musings on building a Generative AI product:
+	https://www.linkedin.com/blog/engineering/generative-ai/musings-on-building-a-generative-ai-product
+
+
+
+From Idea to Reality: Elevating Our Customer Support Through Generative AI:
+	https://medium.com/vimeo-engineering-blog/from-idea-to-reality-elevating-our-customer-support-through-generative-ai-101a2c5ea680
+	
+
+How we built Text-to-SQL at Pinterest:
+	
+	https://medium.com/pinterest-engineering/how-we-built-text-to-sql-at-pinterest-30bad30dabff
+	
+	
+
+A deep dive into the world's smartest email AI:
+	https://www.shortwave.com/blog/deep-dive-into-worlds-smartest-email-ai/
+
+
+LLM-powered data classification for data entities at scale:
+	https://engineering.grab.com/llm-powered-data-classification

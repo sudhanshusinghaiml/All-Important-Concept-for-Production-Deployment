@@ -1,0 +1,25 @@
+brightdata and native python are proxy based network tool.
+-------------------------------------------------------------------------------------------------
+Gen-AI Github Project:
+	https://github.com/pythonontheplane123/langchain-tutorials/tree/main
+	https://github.com/pythonontheplane123/BoT
+	
+RAG Demo: 
+	https://github.com/Haste171/rag-demo
+	https://github.com/Haste171/llamaindex-retrieval-api/tree/main
+	
+
+-------------------------------------------------------------------------------------------------
+Auth-FastAPI- https://github.com/Haste171/auth-fastapi/tree/main
+
+LangChain Chatbot: https://github.com/Haste171/langchain-chatbot/tree/main
+
+-------------------------------------------------------------------------------------------------
+Understanding LangChain Agents:
+	https://medium.com/@ranadevrat/understanding-langchain-agents-a-beginners-guide-8a87708dc48e#:~:text=Agents%20in%20Lang%20Chain%20are,specific%20actions%20based%20on%20context.
+
+-------------------------------------------------------------------------------------------------
+Build a Chatbot with Advance RAG System:
+	https://medium.com/@ranadevrat/build-a-chatbot-with-advance-rag-system-with-llamaindex-opensource-llm-flask-and-langchain-1bf875be3ec6
+	
+-------------------------------------------------------------------------------------------------

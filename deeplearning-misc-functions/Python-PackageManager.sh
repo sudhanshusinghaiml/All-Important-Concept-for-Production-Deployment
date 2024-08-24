@@ -47,13 +47,30 @@ conda init --all
 
 # Commands to Setup Conda Environment using Command Prompt
 conda create -p .venv/ python=3.10.14 -y
+
 conda create -n hate-sppech-classification python=3.10.14 -y
 
 conda create -n chest-disease-classification python=3.10.14 -y
 
+# Commands to remove Conda Environment using Command Prompt
 conda remove -n chest-disease-classification --all
 
-conda activate venv/
+
+# To activate conda environment
+conda activate 
+
+# Renaming the conda environment using 4 step process
+
+conda activate Google-PaLM-and-Langchain-based-QnA-System
+
+conda create --name QnA-System-using-geminipro-and-langchain --clone Google-PaLM-and-Langchain-based-QnA-System
+
+conda deactivate Google-PaLM-and-Langchain-based-QnA-System
+
+conda activate geminipro-and-langchain-based-QnA-System
+
+conda remove --name Google-PaLM-and-Langchain-based-QnA-System --all
+
 
 # create the requirement.txt files and update all the libraries that is needed for the project
 # run the requirement.txt files using below commands

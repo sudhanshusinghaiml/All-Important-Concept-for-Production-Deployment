@@ -9,9 +9,35 @@ poetry new `project_name`
 # To add the dependencies list
 poetry add langchain
 
+# To check the poetry env or setup poetry info
+poetry env info
+
+# To create the venv using project name
+poetry shell
+
 # To install all the dependencies and create lock file
 poetry install
 
+# To list local packages that has been used in our project 
+pip list
+
+# To add test files for dev, test based on environment etc
+poetry add pytest --group dev
+
+# We can also add the formatter such as black, flake8 etc.
+poetry add black --group dev
+
+# We can remove the dependencies using poetry
+poetry remove langchain
+
+# To exit the poetry vitual environment
+exit
+
+# To list all the environments using poetry
+poetry env list
+
+# To remove the poetry env from machine
+poetry env remove `project_name`
 
 
 # -----------------------------------------------------------------------------------------------#

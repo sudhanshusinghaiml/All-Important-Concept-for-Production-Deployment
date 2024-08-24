@@ -79,15 +79,22 @@ git reset HEAD~
 
 
 # If you want to completely undo the changes from the previous commit
+# Completely undo the last commit: 
+# If you want to completely discard the last commit—changes and all—use the git reset command with the --hard flag
 git reset --hard HEAD~
+
+# Undo the last commit but keep the changes: 
+# If you want to undo the commit but keep the changes in your working directory, use the git reset command with the --soft flag, followed by HEAD~
+git reset --soft HEAD~
+
 
 '''
 	Please be cautious when using git reset --hard, as it can permanently discard changes that have not been committed. 
 	Make sure you donot have any important changes in your working directory before executing this command
 '''
 # ---------------------------------------------------------------------------------------------------------------
-#  To undo commits in your local repository without deleting the files
-git reset --soft HEAD~1
+#  To undo last 2 commits in your local repository without deleting the files
+git reset --soft HEAD~2
 
 '''
 This command will move the HEAD pointer of your current branch back one commit (HEAD~1 refers to the commit 

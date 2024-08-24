@@ -1,3 +1,20 @@
+# Package Management using Poetry
+
+# To install poetry
+pip install poetry
+
+# To create a project structure using poetry
+poetry new `project_name`
+
+# To add the dependencies list
+poetry add langchain
+
+# To install all the dependencies and create lock file
+poetry install
+
+
+
+# -----------------------------------------------------------------------------------------------#
 # Run below command if you are running conda Environment setup for first time
 # https://conda.io/projects/conda/en/latest/commands/init.html
 conda init --all

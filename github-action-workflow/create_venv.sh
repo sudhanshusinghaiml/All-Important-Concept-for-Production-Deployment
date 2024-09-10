@@ -12,6 +12,9 @@ conda activate venv/
 # run the requirement.txt files using below commands
 pip install --no-cache-dir -r requirements.txt
 
+# removing conda environment
+conda env remove --name hate-sppech-classification
+
 # -----------------------------------------------------------------------------------------------#
 
 # Commands to Setup Environment using Git Bash

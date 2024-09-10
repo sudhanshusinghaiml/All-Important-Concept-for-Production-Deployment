@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2487.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; -webkit-text-stroke: #000000}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; text-align: justify; font: 12.0px Georgia; -webkit-text-stroke: #000000}
+    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Georgia; -webkit-text-stroke: #000000}
+    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Georgia; color: #000078; -webkit-text-stroke: #000078}
+    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Times; color: #000078; -webkit-text-stroke: #000078}
+    li.li6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Georgia; color: #000078; -webkit-text-stroke: #000078}
+    span.s1 {font-kerning: none}
+    span.s2 {-webkit-text-stroke: 0px #000000}
+    ul.ul1 {list-style-type: disc}
+    ul.ul2 {list-style-type: circle}
+  </style>
+</head>
+<body>
+<p class="p1"><span class="s1">pd.set_option('display.max_rows', 500) pd.set_option('display.max_columns', 500) pd.set_option('display.width', 1000) pd.set_option('display.expand_frame_repr', False) pd.set_option('display.max_colwidth',2000) pd.options.display.float_format='{:.2f}'.format # Whether to print out the full DataFrame repr for wide DataFrames across multiple lines, max_columns is still respected, but the output will wrap-around across multiple â€œpagesâ€ if itâ€™s width exceeds display.width. [default: True] ------------------------------------------------------------------------------------------------------------------</span></p>
+<h2 style="margin: 0.0px 0.0px 14.9px 0.0px; font: 18.0px Georgia; -webkit-text-stroke: #000000"><span class="s1"><b>I. Jupyter Notebook General Settings:</b></span></h2>
+<p class="p1"><span class="s1">------------------------------------------------------------------------------------------------------------------</span></p>
+<p class="p3"><span class="s1"><b>2.1 Data Ingestion: Read the dataset. Do the descriptive statistics and do null value condition check, check for duplicates and outliers and write an inference on it. Perform Univariate and Bivariate Analysis and Multivariate Analysis.</b></span></p>
+<p class="p1"><span class="s1">-----------------------------------------------------------------------------------------------------------------</span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Georgia; color: #33a75e; -webkit-text-stroke: #33a75e"><span class="s1"><b>A. Import Python Libraries:</b></span></h3>
+<p class="p1"><span class="s1">------------------------------------------------------------------------</span></p>
+<h3 style="margin: 0.0px 0.0px 14.0px 0.0px; font: 14.0px Georgia; color: #33a75e; -webkit-text-stroke: #33a75e"><span class="s1"><b>1.1.1 Importing the Data of Provided Dataset</b></span></h3>
+<p class="p1"><span class="s1">-----------------------------------------------------------------------------------------------------------------</span></p>
+<p class="p5"><span class="s1"><b>Observations:</b></span></p>
+<ul class="ul1">
+  <li class="li6"><span class="s2"></span><span class="s1">Data has been loaded to pandas from compactiv.xlsx file</span></li>
+  <ul class="ul2">
+    <li class="li6"><span class="s2"></span><span class="s1">There are features whose minimum values are ZERO. This is possible but we need to identify the proportion of zeros in each of the filed to decide if the ZEROs in the features are genuine or can be considered missing values.</span></li>
+  </ul>
+</ul>
+<p class="p7"><span class="s1">---------------------------------------------------------------------------------------------------------</span></p>
+<p class="p6"><span class="s1"><b>Observations:</b></span></p>
+<ul class="ul1">
+  <li class="li6"><span class="s2"></span><span class="s1">Features rchar and wchar have 1.27% and 0.84% of missing values. It can be imputed with median.</span></li>
+  <li class="li6"><span class="s2"></span><span class="s1">lwrite,pgin and ppgin - features have 10% to 35% of Zeros in the datasets.</span></li>
+  <li class="li6"><span class="s2"></span><span class="s1">pgout,ppgout,pgfree,pgscan and atch - These features have more than 50% of the data as Zeros</span></li>
+  <li class="li6"><span class="s2"></span><span class="s1">lread, fork, exec, pflt and usr - These features have Zeros in the data sets ranging from 0% to 10%.</span></li>
+  <li class="li6"><span class="s2"></span><span class="s1">The features with Zeros is a possibility in case of an idle system. Let us see when such features can attain Zeros:</span></li>
+  <ul class="ul2">
+    <li class="li6"><span class="s2"></span><span class="s1">lwrite - If there are no active processes that require data to be transferred between system memory and user memory, then the number of transfers per second between system memory and user memory would be zero.</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">pgin - If all the pages required by the processes are already in memory, then there would be no need for the operating system to fetch any pages from disk, and the number of page-in requests per second would be zero.</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">ppgin - If all of the pages required by the running processes are already in memory, then there is no possibility for the operating system to load any pages from disk, and the number of pages paged in per second would be zero. This can occur when a process has a relatively stable memory usage pattern and the operating system is able to allocate enough memory to accommodate all of the required pages without needing to swap any out to disk.</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">pgout - Page out requests occur when the operating system needs to write data from memory back to disk to free up memory for other processes. If there is enough free memory available in the system, and no process requires more memory than what is available, then the number of page out requests per second would be zero.</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">ppgout - If there is enough free memory available, and all running processes have allocated the memory they require, then there would be no need to page out any pages to disk, and the number of pages paged out per second would be zero.</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">pgfree - If there are no processes running or if all the processes have allocated all the memory they need, then there would be no need to add pages to the free list, and the number of pages per second placed on the free list would be zero</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">pgscan - If the system has enough free memory and there are no processes that require additional memory. In such cases, the operating system's memory management algorithm may not need to check any pages for freeing, as there are no pages that need to be reclaimed. However, in most cases, some level of memory management is required to keep the system running smoothly, even if there are no active memory requests</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">atch - If there are no processes running or if all the required pages are already in memory, then there would be no need for page attachment, and the number of page attaches per second would be zero</span></li>
+    <li class="li6"><span class="s2"></span><span class="s1">usr -</span></li>
+  </ul>
+</ul>
+<p class="p7"><span class="s1">----------------------------------------------------------------------------</span></p>
+</body>
+</html>

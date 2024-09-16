@@ -116,8 +116,7 @@ git pull origin develop
 git stash pop
 
 # --------------------------------------------------------------------------------------------------------------
-
-If you want to permanently delete a stashed entry in Git (without applying it), follow these steps:
+# If you want to permanently delete a stashed entry in Git (without applying it), follow these steps:
 
 ### 1. List all stashed entries
    # First, check all the stashed entries you have:
@@ -140,3 +139,46 @@ If you want to permanently delete a stashed entry in Git (without applying it), 
 # After this, the stashes will be permanently removed from Git.
 
 # -----------------------------------------------------------------------------------------------------------
+# The error occurs because your local branch and the remote branch have diverged, meaning there are commits on both branches that the other does not have. 
+# Git is asking how you'd like to reconcile these differences when pulling changes.
+# You can fix this by specifying how Git should handle these divergent branches:
+
+### Options to Fix the Issue:
+
+#### 1. Merge (default behavior)
+   # If you want to merge the remote changes with your local changes:
+   git config pull.rebase false
+
+   # Then pull the changes:
+   git pull origin develop
+
+
+#### 2. **Rebase**
+   # If you want to rebase your changes on top of the remote changes (re-applies your commits after fetching the remote commits):
+   git config pull.rebase true
+
+   # Then pull the changes:
+   git pull origin develop
+
+
+#### 3. **Fast-Forward Only**
+   # If you only want to fast-forward (only applies if your local branch is behind and has no new commits):
+   git config pull.ff only
+
+   # Then pull the changes:
+   git pull origin develop
+   
+   
+### Global Setting (Optional)
+	# If you want to set the preferred behavior for all repositories in the future, you can add the `--global` flag:
+
+	# - For merge (default):
+  	git config --global pull.rebase false
+
+	# - For rebase:
+  	git config --global pull.rebase true
+
+	# - For fast-forward only:
+  	git config --global pull.ff only
+
+	# Once you choose one of these methods, Git will know how to handle the divergent branches in the future.

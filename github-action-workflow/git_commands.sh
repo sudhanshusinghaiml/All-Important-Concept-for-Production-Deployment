@@ -103,3 +103,40 @@ not discarded, allowing you to make further modifications or commit them again
 '''
 
 # ---------------------------------------------------------------------------------------------------------------
+
+# Stash Local Changes (Safe Option)
+### If you want to keep the local changes temporarily and apply them later after pulling:
+git stash --include-untracked
+
+### Pull the changes:
+git pull origin develop
+
+
+# We can apply the stashed changes back if needed
+git stash pop
+
+# --------------------------------------------------------------------------------------------------------------
+
+If you want to permanently delete a stashed entry in Git (without applying it), follow these steps:
+
+### 1. List all stashed entries
+   # First, check all the stashed entries you have:
+   git stash list
+
+   # This will give you a list of all stashes, each with an index like `stash@{0}`, `stash@{1}`, etc.
+
+### 2. Delete a specific stash
+   # If you want to delete a specific stash, use the following command, replacing `stash@{0}` with the stash you want to delete:
+   # This will permanently delete the specified stash.
+   git stash drop stash@{0}
+
+
+### 3. **Delete all stashes**
+   # If you want to remove all stashes in one go:
+   git stash clear
+
+   # This will permanently delete all stashed entries from your repository.
+
+# After this, the stashes will be permanently removed from Git.
+
+# -----------------------------------------------------------------------------------------------------------

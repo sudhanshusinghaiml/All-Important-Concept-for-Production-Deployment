@@ -12,6 +12,20 @@ git branch -m main develop
 git fetch origin
 git branch -u origin/develop develop
 git remote set-head origin -a
+# ---------------------------------------------------------------------------------------------------------------
+
+# Refer the documentation - https://git-scm.com/book/en/v2/Git-Branching-Branch-Management
+
+# Create a new branch from master/develop branch
+git checkout -b test
+
+
+# Rename a branch
+git branch -m current_branch new_branch
+Git branch --move current_branch new_branch 
+
+# Delete a branch 
+git branch -d branch_name
 
 # ---------------------------------------------------------------------------------------------------------------
 # If you have already commited the large files but you are unable to pusblish to repo
@@ -47,7 +61,6 @@ git show commit_id_output_from_previous_command
 # This command will replace the content of file with the content that was on the deleted files from the commit
 git checkout commit_id_output_from_previous_command -- file_path  
 # ---------------------------------------------------------------------------------------------------------------
-
 # To add a reposiotry as submodules in git repository
 
 git clone https://github.com/sudhanshusinghaiml/Twitter-Sentiment-Analysis-for-Airlines.git 

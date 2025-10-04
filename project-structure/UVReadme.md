@@ -14,4 +14,11 @@
 	
 ## If you already have Python code but no pyproject.toml. We can run it inside your existing project folder — it won’t overwrite your code, just create pyproject.toml
 	- uv init
-	
+
+## Converting local repository to git repository
+	- git init
+	- curl https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore -o .gitignore
+	- Create a repository in remote with repo name - "cardatabase-repo". 
+	- git remote add origin https://github.com/sudhanshusinghaiml/cardatabase-repo.git
+	- git branch -M develop
+	- git commit -m "Initial commit"

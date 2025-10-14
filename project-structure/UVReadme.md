@@ -11,6 +11,7 @@
 	- uv init myproject
 	- cd myproject
 	- uv add openai
+	- uv add pymarkdownlnt  (this is for pymarkdown linting)
 	
 ## If you already have Python code but no pyproject.toml. We can run it inside your existing project folder — it won’t overwrite your code, just create pyproject.toml
 	- uv init
